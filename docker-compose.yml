@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fastapi_database
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      app-network:
+        aliases:
+          - db
+    ports:
+      - 5432:5432
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - SQLALCHEMY_DATABASE_URL=postgresql://myuser:password@db/fastapi_database
+    command: poetry run uvicorn app.api:app --host 0.0.0.0 --port 8000
+    networks:
+      - app-network
+  
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:

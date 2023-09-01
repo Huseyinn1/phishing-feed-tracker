@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "phishing-feed"
+version = "1.5.1"
+description = "phishing-feed-service"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "phishing_feed"}]
+
+[tool.poetry.dependencies]
+python = "3.10.11"
+fastapi = "^0.100.0"
+sqlalchemy = "^2.0.18"
+requests = "^2.31.0"
+psycopg2-binary = "^2.9.6"
+uvicorn = "^0.22.0"
+beautifulsoup4 = "^4.12.2"
+dynaconf = "^3.2.0"
+timer = "^0.2.2"
+httpx = "^0.24.1"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
